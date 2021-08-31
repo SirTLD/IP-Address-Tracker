@@ -1,23 +1,33 @@
 import React from 'react';
 
 import {
-  MainContainerTopContainer,
+  MainContainerTopItems,
   MainContainerTop,
   TitleH1,
   SearchInput,
   MainContainerBottom,
+  SearchContainer,
+  SearchIcon,
+  Container,
 } from './BodyContainerItems';
 
 function BodyContainer() {
   return (
     <>
-      <MainContainerTopContainer>
+      <Container>
         <MainContainerTop>
-          <TitleH1>IP Address Tracker</TitleH1>
-          <SearchInput></SearchInput>
+          <MainContainerTopItems>
+            <TitleH1>IP Address Tracker</TitleH1>
+            <SearchContainer>
+              <SearchInput
+                placeholder={'Search for any IP address or domain'}
+              />
+              <SearchIcon />
+            </SearchContainer>
+          </MainContainerTopItems>
         </MainContainerTop>
-      </MainContainerTopContainer>
-      <MainContainerBottom></MainContainerBottom>
+        <MainContainerBottom></MainContainerBottom>
+      </Container>
     </>
   );
 }
