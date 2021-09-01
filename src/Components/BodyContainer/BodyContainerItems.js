@@ -2,10 +2,14 @@ import styled from 'styled-components';
 
 import ImgBackground from '../../images/BannerTop.svg';
 import IconImg from '../../images/SearchIcon.svg';
+import MapImgIcon from '../../images/MapIcon.svg';
+import MapLocation from '../../images/MapLocation.jpg';
 
 export const Container = styled.div`
   width: 100vw;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const MainContainerTop = styled.div`
@@ -64,9 +68,65 @@ export const SearchIcon = styled.div`
   background-image: url(${IconImg});
 `;
 
+export const DataContainer = styled.div`
+  height: 294px;
+  width: 100%;
+  background-color: #fff;
+  margin-top: 24px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+`;
+
+export const DataTitleH2 = styled.h2`
+  font-family: 'Rubik', sans-serif;
+  font-weight: bold;
+  font-size: 10px;
+  color: #2c2c2c;
+  text-align: center;
+  line-height: 11.85px;
+  letter-spacing: 1.46px;
+  text-transform: uppercase;
+`;
+
+export const DataValue = styled.p`
+  font-family: 'Rubik', sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  color: black;
+  text-align: center;
+  margin-top: 7px;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+`;
+
+export const DataContainerDiv = styled.div`
+  height: 43px;
+  width: 90%;
+  ${'' /* background-color: red; */}
+  border-radius: 15px;
+  margin: 12px 0;
+`;
+
 export const MainContainerBottom = styled.div`
-  height: calc(100vh-280px);
-  width: 100vw;
-  background-color: orange;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
+  background-image: url(${MapLocation});
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const MainContainerBottomItems = styled.div`
+  height: auto;
+  width: auto;
+`;
+
+export const BottomIcon = styled.div`
+  height: 56px;
+  width: 46px;
+  background-image: url(${MapImgIcon});
 `;
