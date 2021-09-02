@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   MainContainerTopItems,
@@ -17,8 +17,24 @@ import {
   BottomIcon,
 } from './BodyContainerItems';
 
+const privateKey = process.env.REACT_API_KEY;
+
 // import DataEntry from './Components/DataSection';
 function BodyContainer() {
+  const URL_PATH = `'https://geo.ipify.org/api/v1?apiKey=${privateKey}&ipAddress=8.8.8.8'`;
+
+  const getData = async () => {
+    const response = await fetch(URL_PATH);
+    const data = await response.json();
+
+    console.log(data);
+  };
+
+  const [apiData, setApiData] = useState([]);
+
+  // useEffect(() => {
+  //   getData();
+  // });
   return (
     <>
       <Container>
