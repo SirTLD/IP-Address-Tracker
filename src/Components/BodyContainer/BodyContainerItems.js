@@ -4,6 +4,7 @@ import ImgBackground from '../../images/BannerTop.svg';
 import IconImg from '../../images/SearchIcon.svg';
 import MapImgIcon from '../../images/MapIcon.svg';
 import MapLocation from '../../images/MapLocation.jpg';
+import HoverIcon from '../../images/HoverIcon.svg';
 
 export const Container = styled.div`
   width: 100vw;
@@ -66,6 +67,12 @@ export const SearchIcon = styled.div`
   height: 100%;
   border-radius: 0 15px 15px 0;
   background-image: url(${IconImg});
+  background-position: center;
+  cursor: pointer;
+
+  &:hover {
+    background-image: url(${HoverIcon});
+  }
 `;
 
 export const DataContainer = styled.div`

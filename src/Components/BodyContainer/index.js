@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
   MainContainerTopItems,
@@ -17,24 +17,20 @@ import {
   BottomIcon,
 } from './BodyContainerItems';
 
-const privateKey = process.env.REACT_API_KEY;
-
 // import DataEntry from './Components/DataSection';
 function BodyContainer() {
-  const URL_PATH = `'https://geo.ipify.org/api/v1?apiKey=${privateKey}&ipAddress=8.8.8.8'`;
+  const privateKey = process.env.REACT_API_KEY;
+  const urlPath = `'https://geo.ipify.org/api/v1?apiKey=${privateKey}&ipAddress=8.8.8.8'`;
+  // const urlPath = `'https://geo.ipify.org/api/v1?apiKey=at_n7KZsfggQnIAEce406OJbCzW488XO&ipAddress=8.8.8.8'`;
 
-  const getData = async () => {
-    const response = await fetch(URL_PATH);
-    const data = await response.json();
+  // const getData = () => {
+  //   fetch(urlPath)
+  //     .then((response) => response.json())
+  //     .then((data) => console.log(data));
+  // };
 
-    console.log(data);
-  };
+  // getData();
 
-  const [apiData, setApiData] = useState([]);
-
-  // useEffect(() => {
-  //   getData();
-  // });
   return (
     <>
       <Container>
@@ -44,6 +40,7 @@ function BodyContainer() {
             <SearchContainer>
               <SearchInput
                 placeholder={'Search for any IP address or domain'}
+                id={'dataEntry'}
               />
               <SearchIcon />
             </SearchContainer>
