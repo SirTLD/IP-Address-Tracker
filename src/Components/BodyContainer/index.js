@@ -11,25 +11,32 @@ import {
   Container,
   MainContainerBottomItems,
   DataContainer,
-  DataValue,
-  DataTitleH2,
-  DataContainerDiv,
   BottomIcon,
 } from './BodyContainerItems';
 
-// import DataEntry from './Components/DataSection';
-function BodyContainer() {
-  const privateKey = process.env.REACT_API_KEY;
-  const urlPath = `'https://geo.ipify.org/api/v1?apiKey=${privateKey}&ipAddress=8.8.8.8'`;
-  // const urlPath = `'https://geo.ipify.org/api/v1?apiKey=at_n7KZsfggQnIAEce406OJbCzW488XO&ipAddress=8.8.8.8'`;
+import { DataEntry } from '../DataEntry/DataEntry';
+import useTracker from '../../hooks/useTracker';
 
-  // const getData = () => {
-  //   fetch(urlPath)
-  //     .then((response) => response.json())
-  //     .then((data) => console.log(data));
+const BodyContainer = () => {
+  const {
+    region,
+    timezone,
+    isp,
+    city,
+    postalcode,
+    userIp,
+    handleChange,
+    setIsp,
+    getData,
+    setCity,
+    setRegion,
+    setPostalCode,
+    setUserIp,
+  } = useTracker();
+
+  // const getData = (e) => {
+  //   if (!inputValue || inputValue === '') return;
   // };
-
-  // getData();
 
   return (
     <>
@@ -39,16 +46,21 @@ function BodyContainer() {
             <TitleH1>IP Address Tracker</TitleH1>
             <SearchContainer>
               <SearchInput
-                placeholder={'Search for any IP address or domain'}
-                id={'dataEntry'}
+                placeholder={'Search for any IP address'}
+                onChange={(e) => handleChange(e)}
               />
-              <SearchIcon />
+              <SearchIcon onClick={getData} />
             </SearchContainer>
             <DataContainer>
-              <DataEntry title={'Ip Address'} data={'000.000.000.000'} />
-              <DataEntry title={'Location'} data={'Brooklyn, NY 10001'} />
-              <DataEntry title={'Timezone'} data={'UTC-05:00'} />
-              <DataEntry title={'Isp'} data={'SpaceX Starlink'} />
+              <DataEntry title={'Ip Address'} data={userIp} />
+              <DataEntry
+                title={'Location'}
+                city={city}
+                region={region}
+                postalcode={postalcode}
+              />
+              <DataEntry title={'Timezone'} text={'UTC'} data={timezone} />
+              <DataEntry title={'Isp'} data={isp} />
             </DataContainer>
           </MainContainerTopItems>
         </MainContainerTop>
@@ -60,17 +72,6 @@ function BodyContainer() {
       </Container>
     </>
   );
-}
-
-function DataEntry({ title, data }) {
-  return (
-    <>
-      <DataContainerDiv>
-        <DataTitleH2>{title}</DataTitleH2>
-        <DataValue>{data}</DataValue>
-      </DataContainerDiv>
-    </>
-  );
-}
+};
 
 export default BodyContainer;
