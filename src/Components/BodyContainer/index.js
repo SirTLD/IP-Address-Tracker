@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   MainContainerTopItems,
@@ -15,28 +15,42 @@ import {
 } from './BodyContainerItems';
 
 import { DataEntry } from '../DataEntry/DataEntry';
-import useTracker from '../../hooks/useTracker';
 
 const BodyContainer = () => {
-  const {
-    region,
-    timezone,
-    isp,
-    city,
-    postalcode,
-    userIp,
-    handleChange,
-    setIsp,
-    getData,
-    setCity,
-    setRegion,
-    setPostalCode,
-    setUserIp,
-  } = useTracker();
+  const [searchInput, setSearchInput] = useState({
+    searchInput: '',
+  });
 
-  // const getData = (e) => {
-  //   if (!inputValue || inputValue === '') return;
-  // };
+  const [timezone, setTimezone] = useState('');
+  const [city, setCity] = useState('Please Enter Search');
+  const [region, setRegion] = useState('');
+  const [postalcode, setPostalCode] = useState('');
+  const [isp, setIsp] = useState('Please Enter Search');
+  const [userIp, setUserIp] = useState('Please Enter Search');
+
+  // API DATA CALL HANDLER
+
+  const getData = async (e) => {
+    if (searchInput === '') {
+      alert('Please Enter a location');
+    }
+
+    const URL_PATH = `
+      https://geo.ipify.org/api/v1?apiKey=at_n7KZsfggQnIAEce406OJbCzW488XO&ipAddress=${searchInput}`;
+    const api_call = await fetch(URL_PATH);
+    const response = await api_call.json();
+
+    if (!response || response.length === 0) {
+      alert('Invalid IP Address');
+    }
+
+    setUserIp(response.ip);
+    setCity(response.location.city);
+    setRegion(response.location.region);
+    setPostalCode(response.location.postalCode);
+    setTimezone(response.location.timezone);
+    setIsp(response.isp);
+  };
 
   return (
     <>
@@ -47,9 +61,12 @@ const BodyContainer = () => {
             <SearchContainer>
               <SearchInput
                 placeholder={'Search for any IP address'}
-                onChange={(e) => handleChange(e)}
+                onChange={(e) => setSearchInput(e.target.value)}
               />
-              <SearchIcon onClick={getData} />
+              <SearchIcon
+                onClick={getData}
+                onKeyDown={(e) => (e.code === 'Enter' ? getData : null)}
+              />
             </SearchContainer>
             <DataContainer>
               <DataEntry title={'Ip Address'} data={userIp} />
