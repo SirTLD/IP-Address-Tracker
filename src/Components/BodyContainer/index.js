@@ -21,7 +21,6 @@ const BodyContainer = () => {
   const [searchInput, setSearchInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-
   const [userIpData, setUserIpData] = useState(null);
 
   // API DATA CALL HANDLER
@@ -41,14 +40,16 @@ const BodyContainer = () => {
 
       console.log(response);
 
-      if (!response || response.length === 0) {
-        alert('Invalid IP Address');
+      if (!response || response.length === 0 || response.code === 422) {
+        setIsError(true);
+        setLoading(false);
+
+        return;
       }
 
       setUserIpData(response);
       setLoading(false);
     } catch (err) {
-      setIsError(true);
       console.log(err);
     }
   };
