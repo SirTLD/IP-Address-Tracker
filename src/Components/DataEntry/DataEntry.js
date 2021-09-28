@@ -5,15 +5,12 @@ import {
 } from '../BodyContainer/BodyContainerItems';
 
 // export const DataEntry = ({ title, text, data, city, region, postalcode }) => {
-export const DataEntry = ({ title, text, data }) => {
+export const DataEntry = ({ title, data }) => {
   return (
     <>
       <DataContainerDiv>
         <DataTitleH2>{title}</DataTitleH2>
-        <DataValue>
-          {text}
-          {data}
-        </DataValue>
+        <DataValue>{data}</DataValue>
       </DataContainerDiv>
     </>
   );

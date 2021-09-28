@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-// import { useGeoLocation } from './Geolocation';
+import { BarLoader } from 'react-spinners';
 
 import {
   MainContainerTopItems,
@@ -18,22 +17,12 @@ import {
 
 import { DataEntry } from '../DataEntry/DataEntry';
 
-// 'https://api.ipify.org?format=jsonp&callback=getIP';
-
-// function getIp(json) {
-// console.log(json.ip);
-// }
-
 const BodyContainer = () => {
   const [searchInput, setSearchInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const [userIpData, setUserIpData] = useState(null);
-
-  // const geolocation = useGeoLocation();
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
 
   // API DATA CALL HANDLER
 
@@ -43,19 +32,33 @@ const BodyContainer = () => {
       return;
     }
 
-    const URL_PATH = `
+    setLoading(true);
+    try {
+      const URL_PATH = `
       https://geo.ipify.org/api/v1?apiKey=at_n7KZsfggQnIAEce406OJbCzW488XO&ipAddress=${searchInput}`;
-    const api_call = await fetch(URL_PATH);
-    const response = await api_call.json();
+      const api_call = await fetch(URL_PATH);
+      const response = await api_call.json();
 
-    console.log(response);
+      console.log(response);
 
-    if (!response || response.length === 0) {
-      alert('Invalid IP Address');
+      if (!response || response.length === 0) {
+        alert('Invalid IP Address');
+      }
+
+      setUserIpData(response);
+      setLoading(false);
+    } catch (err) {
+      setIsError(true);
+      console.log(err);
     }
-
-    setUserIpData(response);
   };
+
+  const override = `
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+  
+  `;
 
   return (
     <>
@@ -67,33 +70,49 @@ const BodyContainer = () => {
               <SearchInput
                 placeholder={'Search for any IP address'}
                 onChange={(e) => setSearchInput(e.target.value)}
+                onKeyPress={(e) => (e.key === 'Enter' ? getData() : null)}
               />
-              <SearchIcon
-                onClick={() => getData()}
-                onKeyPress={(e) => (e.key === 'Enter' ? getData : null)}
-              />
+              <SearchIcon onClick={() => getData()} />
             </SearchContainer>
 
-            {userIpData !== null ? (
-              <div>
-                <DataContainer>
-                  <DataEntry title={'Ip Address'} data={userIpData.ip} />
-                  <DataEntry
-                    title={'Location'}
-                    data={`${userIpData.location.city}, 
-                      ${userIpData.location.region}, 
-                      ${userIpData.location.postalcode}`}
-                  />
-                  <DataEntry
-                    title={'Timezone'}
-                    text={'UTC'}
-                    data={userIpData.location.timezone}
-                  />
-                  <DataEntry title={'Isp'} data={userIpData.isp} />
-                </DataContainer>
-              </div>
+            {isError ? (
+              <DataContainer>Enter a Valid IP Address</DataContainer>
             ) : (
-              <DataContainer>Enter an IP Address</DataContainer>
+              ''
+            )}
+
+            {loading ? (
+              <DataContainer>
+                <BarLoader
+                  css={override}
+                  size={200}
+                  color={'black'}
+                  loading={loading}
+                />
+              </DataContainer>
+            ) : (
+              <>
+                {userIpData !== null ? (
+                  <div>
+                    <DataContainer>
+                      <DataEntry title={'Ip Address'} data={userIpData.ip} />
+                      <DataEntry
+                        title={'Location'}
+                        data={`${userIpData.location.city}, 
+                      ${userIpData.location.region}, 
+                      ${userIpData.location.postalCode}`}
+                      />
+                      <DataEntry
+                        title={'Timezone'}
+                        data={`UTC ${userIpData.location.timezone}`}
+                      />
+                      <DataEntry title={'Isp'} data={userIpData.isp} />
+                    </DataContainer>
+                  </div>
+                ) : (
+                  <DataContainer>Enter an IP Address</DataContainer>
+                )}
+              </>
             )}
           </MainContainerTopItems>
         </MainContainerTop>
