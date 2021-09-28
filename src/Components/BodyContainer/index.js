@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+// import { useGeoLocation } from './Geolocation';
+
 import {
   MainContainerTopItems,
   MainContainerTop,
@@ -16,23 +18,29 @@ import {
 
 import { DataEntry } from '../DataEntry/DataEntry';
 
-const BodyContainer = () => {
-  const [searchInput, setSearchInput] = useState({
-    searchInput: '',
-  });
+// 'https://api.ipify.org?format=jsonp&callback=getIP';
 
-  const [timezone, setTimezone] = useState('');
-  const [city, setCity] = useState('Please Enter Search');
-  const [region, setRegion] = useState('');
-  const [postalcode, setPostalCode] = useState('');
-  const [isp, setIsp] = useState('Please Enter Search');
-  const [userIp, setUserIp] = useState('Please Enter Search');
+// function getIp(json) {
+// console.log(json.ip);
+// }
+
+const BodyContainer = () => {
+  const [searchInput, setSearchInput] = useState('');
+
+  const [userIpData, setUserIpData] = useState(null);
+
+  // const geolocation = useGeoLocation();
+
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   // API DATA CALL HANDLER
 
-  const getData = async (e) => {
+  const getData = async () => {
     if (searchInput === '') {
-      alert('Please Enter a location');
+      alert('Please Enter IP Address');
+      return;
     }
 
     const URL_PATH = `
@@ -40,16 +48,13 @@ const BodyContainer = () => {
     const api_call = await fetch(URL_PATH);
     const response = await api_call.json();
 
+    console.log(response);
+
     if (!response || response.length === 0) {
       alert('Invalid IP Address');
     }
 
-    setUserIp(response.ip);
-    setCity(response.location.city);
-    setRegion(response.location.region);
-    setPostalCode(response.location.postalCode);
-    setTimezone(response.location.timezone);
-    setIsp(response.isp);
+    setUserIpData(response);
   };
 
   return (
@@ -64,21 +69,34 @@ const BodyContainer = () => {
                 onChange={(e) => setSearchInput(e.target.value)}
               />
               <SearchIcon
-                onClick={getData}
-                onKeyDown={(e) => (e.code === 'Enter' ? getData : null)}
+                onClick={() => getData()}
+                onKeyPress={(e) => (e.key === 'Enter' ? getData : null)}
               />
             </SearchContainer>
-            <DataContainer>
-              <DataEntry title={'Ip Address'} data={userIp} />
-              <DataEntry
-                title={'Location'}
-                city={city}
-                region={region}
-                postalcode={postalcode}
-              />
-              <DataEntry title={'Timezone'} text={'UTC'} data={timezone} />
-              <DataEntry title={'Isp'} data={isp} />
-            </DataContainer>
+
+            {userIpData !== null ? (
+              <div>
+                <DataContainer>
+                  <DataEntry title={'Ip Address'} data={userIpData.ip} />
+                  <DataEntry
+                    title={'Location'}
+                    data={
+                      userIpData.location.city +
+                      userIpData.location.region +
+                      userIpData.location.postalcode
+                    }
+                  />
+                  <DataEntry
+                    title={'Timezone'}
+                    text={'UTC'}
+                    data={userIpData.location.timezone}
+                  />
+                  <DataEntry title={'Isp'} data={userIpData.isp} />
+                </DataContainer>
+              </div>
+            ) : (
+              <DataContainer>Enter an IP Address</DataContainer>
+            )}
           </MainContainerTopItems>
         </MainContainerTop>
         <MainContainerBottom>
