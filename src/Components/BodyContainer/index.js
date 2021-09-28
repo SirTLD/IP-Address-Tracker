@@ -80,11 +80,9 @@ const BodyContainer = () => {
                   <DataEntry title={'Ip Address'} data={userIpData.ip} />
                   <DataEntry
                     title={'Location'}
-                    data={
-                      userIpData.location.city +
-                      userIpData.location.region +
-                      userIpData.location.postalcode
-                    }
+                    data={`${userIpData.location.city}, 
+                      ${userIpData.location.region}, 
+                      ${userIpData.location.postalcode}`}
                   />
                   <DataEntry
                     title={'Timezone'}
