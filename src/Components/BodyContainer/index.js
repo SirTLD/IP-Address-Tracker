@@ -75,11 +75,7 @@ const BodyContainer = () => {
               <SearchIcon onClick={() => getData()} />
             </SearchContainer>
 
-            {isError ? (
-              <DataContainer>Enter a Valid IP Address</DataContainer>
-            ) : (
-              ''
-            )}
+            {isError && <DataContainer>Enter a Valid IP Address</DataContainer>}
 
             {loading ? (
               <DataContainer>
@@ -98,7 +94,7 @@ const BodyContainer = () => {
                       <DataEntry title={'Ip Address'} data={userIpData.ip} />
                       <DataEntry
                         title={'Location'}
-                        data={`${userIpData.location.city}, 
+                        data={`${userIpData.location.city} , 
                       ${userIpData.location.region}, 
                       ${userIpData.location.postalCode}`}
                       />
