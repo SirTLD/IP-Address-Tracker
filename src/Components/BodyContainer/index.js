@@ -20,7 +20,7 @@ import { DataEntry } from '../DataEntry/DataEntry';
 const BodyContainer = () => {
   const [searchInput, setSearchInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState(null);
   const [userIpData, setUserIpData] = useState(null);
 
   // API DATA CALL HANDLER
@@ -31,24 +31,33 @@ const BodyContainer = () => {
       return;
     }
 
+    // API_KEY = process.env.REACT_GEO_KEY
+
     setLoading(true);
     try {
       const URL_PATH = `
-      https://geo.ipify.org/api/v1?apiKey=at_n7KZsfggQnIAEce406OJbCzW488XO&ipAddress=${searchInput}`;
+      https://geo.ipify.org/api/v1?apiKey=at_n7KZsfggQnIAEce406OJbCzW488XO&ipAddress=${searchInput}&domain=${searchInput}`;
       const api_call = await fetch(URL_PATH);
       const response = await api_call.json();
 
       console.log(response);
+      console.log(process.env);
 
-      if (!response || response.length === 0 || response.code === 422) {
-        setIsError(true);
+      if (
+        !response ||
+        response.length === 0 ||
+        response.code === 422 ||
+        response.code === 400
+      ) {
         setLoading(false);
-
+        setIsError(response.messages);
+        setUserIpData(null);
         return;
       }
 
       setUserIpData(response);
       setLoading(false);
+      setIsError('');
     } catch (err) {
       console.log(err);
     }
@@ -69,14 +78,14 @@ const BodyContainer = () => {
             <TitleH1>IP Address Tracker</TitleH1>
             <SearchContainer>
               <SearchInput
-                placeholder={'Search for any IP address'}
+                placeholder={'Search for any IP address or domain'}
                 onChange={(e) => setSearchInput(e.target.value)}
                 onKeyPress={(e) => (e.key === 'Enter' ? getData() : null)}
               />
               <SearchIcon onClick={() => getData()} />
             </SearchContainer>
 
-            {isError && <DataContainer>Enter a Valid IP Address</DataContainer>}
+            {isError ? <DataContainer>{isError}</DataContainer> : ''}
 
             {loading ? (
               <DataContainer>
@@ -89,7 +98,7 @@ const BodyContainer = () => {
               </DataContainer>
             ) : (
               <>
-                {userIpData !== null ? (
+                {userIpData && (
                   <div>
                     <DataContainer>
                       <DataEntry title={'Ip Address'} data={userIpData.ip} />
@@ -106,8 +115,6 @@ const BodyContainer = () => {
                       <DataEntry title={'Isp'} data={userIpData.isp} />
                     </DataContainer>
                   </div>
-                ) : (
-                  <DataContainer>Enter an IP Address</DataContainer>
                 )}
               </>
             )}
