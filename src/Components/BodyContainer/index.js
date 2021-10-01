@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BarLoader } from 'react-spinners';
+import { BarLoader, PropagateLoader } from 'react-spinners';
 
 import {
   MainContainerTopItems,
@@ -100,32 +100,57 @@ const BodyContainer = () => {
             ) : (
               <>
                 {userIpData && (
-                  <div>
-                    <DataContainer>
-                      <DataEntry title={'Ip Address'} data={userIpData.ip} />
-                      <DataEntry
-                        title={'Location'}
-                        data={`${userIpData.location.city} , 
+                  <>
+                    <div>
+                      <DataContainer>
+                        <DataEntry title={'Ip Address'} data={userIpData.ip} />
+                        <DataEntry
+                          title={'Location'}
+                          data={`${userIpData.location.city} , 
                       ${userIpData.location.region}, 
                       ${userIpData.location.postalCode}`}
-                      />
-                      <DataEntry
-                        title={'Timezone'}
-                        data={`UTC ${userIpData.location.timezone}`}
-                      />
-                      <DataEntry title={'Isp'} data={userIpData.isp} />
-                    </DataContainer>
-                  </div>
+                        />
+                        <DataEntry
+                          title={'Timezone'}
+                          data={`UTC ${userIpData.location.timezone}`}
+                        />
+                        <DataEntry title={'Isp'} data={userIpData.isp} />
+                      </DataContainer>
+                    </div>
+                  </>
                 )}
               </>
             )}
           </MainContainerTopItems>
         </MainContainerTop>
-        <MainContainerBottom>
-          {!loading && (
-            <Map lat={userIpData.location.lat} lng={userIpData.location.lng} />
-          )}
-        </MainContainerBottom>
+
+        {loading ? (
+          <MainContainerBottom>
+            <PropagateLoader
+              css={override}
+              size={15}
+              color={'black'}
+              loading={loading}
+            />
+          </MainContainerBottom>
+        ) : (
+          <>
+            {userIpData ? (
+              <>
+                <MainContainerBottom>
+                  <Map
+                    lat={userIpData.location.lat}
+                    lng={userIpData.location.lng}
+                  />
+                </MainContainerBottom>
+              </>
+            ) : (
+              <MainContainerBottom>
+                <MainContainerBottomItems></MainContainerBottomItems>
+              </MainContainerBottom>
+            )}
+          </>
+        )}
       </Container>
     </>
   );

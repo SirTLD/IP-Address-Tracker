@@ -124,7 +124,7 @@ export const DataContainerDiv = styled.div`
 export const MainContainerBottom = styled.div`
   height: 100%;
   width: 100%;
-  background-image: url(${MapLocation});
+  ${'' /* background-image: url(${MapLocation}); */}
   display: flex;
   justify-content: center;
   align-items: center;
