@@ -137,3 +137,8 @@ export const BottomIcon = styled.div`
   width: 46px;
   background-image: url(${MapImgIcon});
 `;
+
+// export const MapContainer = styled.div`
+//   height: 100%;
+//   width: 100%;
+// `;

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BarLoader } from 'react-spinners';
+// import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 import {
   MainContainerTopItems,
@@ -13,9 +14,11 @@ import {
   MainContainerBottomItems,
   DataContainer,
   BottomIcon,
+  // MapContainer,
 } from './BodyContainerItems';
 
 import { DataEntry } from '../DataEntry/DataEntry';
+// import Map from '../Map';
 
 const BodyContainer = () => {
   const [searchInput, setSearchInput] = useState('');
@@ -31,8 +34,6 @@ const BodyContainer = () => {
       return;
     }
 
-    // API_KEY = process.env.REACT_GEO_KEY
-
     setLoading(true);
     try {
       const URL_PATH = `
@@ -41,7 +42,6 @@ const BodyContainer = () => {
       const response = await api_call.json();
 
       console.log(response);
-      console.log(process.env);
 
       if (
         !response ||
@@ -69,6 +69,8 @@ const BodyContainer = () => {
   border-color: red;
   
   `;
+
+  // const position = [51.505, -0.09];
 
   return (
     <>
@@ -121,6 +123,7 @@ const BodyContainer = () => {
           </MainContainerTopItems>
         </MainContainerTop>
         <MainContainerBottom>
+          {/* <Map /> */}
           <MainContainerBottomItems>
             <BottomIcon></BottomIcon>
           </MainContainerBottomItems>
