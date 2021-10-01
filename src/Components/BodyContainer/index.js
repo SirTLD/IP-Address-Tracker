@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { BarLoader } from 'react-spinners';
-// import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 import {
   MainContainerTopItems,
@@ -14,11 +13,10 @@ import {
   MainContainerBottomItems,
   DataContainer,
   BottomIcon,
-  // MapContainer,
 } from './BodyContainerItems';
 
 import { DataEntry } from '../DataEntry/DataEntry';
-// import Map from '../Map';
+import Map from '../Map';
 
 const BodyContainer = () => {
   const [searchInput, setSearchInput] = useState('');
@@ -56,6 +54,7 @@ const BodyContainer = () => {
       }
 
       setUserIpData(response);
+
       setLoading(false);
       setIsError('');
     } catch (err) {
@@ -123,10 +122,9 @@ const BodyContainer = () => {
           </MainContainerTopItems>
         </MainContainerTop>
         <MainContainerBottom>
-          {/* <Map /> */}
-          <MainContainerBottomItems>
-            <BottomIcon></BottomIcon>
-          </MainContainerBottomItems>
+          {!loading && (
+            <Map lat={userIpData.location.lat} lng={userIpData.location.lng} />
+          )}
         </MainContainerBottom>
       </Container>
     </>

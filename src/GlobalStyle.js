@@ -15,5 +15,8 @@ body {
 font-family: 'Rubik', sans-serif;
 }
 
-
+.leaflet-container {
+  width: 100vw;
+  height: 100%;
+}
 `;

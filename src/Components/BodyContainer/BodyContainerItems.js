@@ -86,6 +86,9 @@ export const DataContainer = styled.div`
   align-items: center;
   flex-direction: column;
   position: relative;
+  z-index: 500;
+
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `;
 
 export const DataTitleH2 = styled.h2`
@@ -125,6 +128,9 @@ export const MainContainerBottom = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 `;
 
 export const MainContainerBottomItems = styled.div`
@@ -137,8 +143,3 @@ export const BottomIcon = styled.div`
   width: 46px;
   background-image: url(${MapImgIcon});
 `;
-
-// export const MapContainer = styled.div`
-//   height: 100%;
-//   width: 100%;
-// `;
