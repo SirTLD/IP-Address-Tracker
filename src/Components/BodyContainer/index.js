@@ -42,10 +42,6 @@ const BodyContainer = () => {
       const api_call = await fetch(URL_PATH);
       const response = await api_call.json();
 
-      console.log(config);
-
-      console.log(response);
-
       if (
         !response ||
         response.length === 0 ||
