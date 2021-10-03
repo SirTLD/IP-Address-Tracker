@@ -22,9 +22,7 @@ function Map({ lat, lng }) {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <Marker position={[lat, lng]} icon={iconStyle}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
+        <Popup>Approximate Location</Popup>
       </Marker>
     </MapContainer>
   );
