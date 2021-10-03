@@ -65,7 +65,7 @@ export const SearchInput = styled.input`
 
   &::placeholder {
     font-family: 'Rubik', sans-serif;
-    color: #2c2c2c;
+    color: grey;
   }
 `;
 
