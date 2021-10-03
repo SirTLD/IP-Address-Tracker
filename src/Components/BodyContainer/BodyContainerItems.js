@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 import ImgBackground from '../../images/BannerTop.svg';
 import IconImg from '../../images/SearchIcon.svg';
-import MapImgIcon from '../../images/MapIcon.svg';
-import MapLocation from '../../images/MapLocation.jpg';
+// import MapImgIcon from '../../images/MapIcon.svg';
+// import MapLocation from '../../images/MapLocation.jpg';
 import HoverIcon from '../../images/HoverIcon.svg';
 
 export const Container = styled.div`
@@ -116,7 +116,7 @@ export const DataValue = styled.p`
 export const DataContainerDiv = styled.div`
   height: 43px;
   width: 90%;
-  ${'' /* background-color: red; */}
+
   border-radius: 15px;
   margin: 12px 0;
 `;
@@ -141,5 +141,5 @@ export const MainContainerBottomItems = styled.div`
 export const BottomIcon = styled.div`
   height: 56px;
   width: 46px;
-  background-image: url(${MapImgIcon});
+  ${'' /* background-image: url(${MapImgIcon}); */}
 `;
