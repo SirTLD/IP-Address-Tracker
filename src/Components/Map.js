@@ -11,7 +11,12 @@ const iconStyle = L.icon({
 
 function Map({ lat, lng }) {
   return (
-    <MapContainer center={[lat, lng]} zoom={13} scrollWheelZoom={true}>
+    <MapContainer
+      center={[lat, lng]}
+      zoom={13}
+      scrollWheelZoom={true}
+      zoomControl={false}
+    >
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

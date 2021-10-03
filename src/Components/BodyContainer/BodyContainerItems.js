@@ -31,6 +31,13 @@ export const MainContainerTop = styled.div`
 export const MainContainerTopItems = styled.div`
   width: 90%;
   height: 300px;
+  @media screen and (min-width: 768px) {
+    width: 70%;
+  }
+
+  @media screen and (min-width: 1300px) {
+    width: 50%;
+  }
 `;
 
 export const TitleH1 = styled.h1`
@@ -87,7 +94,6 @@ export const DataContainer = styled.div`
   flex-direction: column;
   position: relative;
   z-index: 500;
-
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `;
 
@@ -95,7 +101,7 @@ export const DataTitleH2 = styled.h2`
   font-family: 'Rubik', sans-serif;
   font-weight: bold;
   font-size: 10px;
-  color: #2c2c2c;
+  color: grey;
   text-align: center;
   line-height: 11.85px;
   letter-spacing: 1.46px;
@@ -105,18 +111,21 @@ export const DataTitleH2 = styled.h2`
 export const DataValue = styled.p`
   font-family: 'Rubik', sans-serif;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
   color: black;
   text-align: center;
   margin-top: 7px;
   line-height: 24px;
   letter-spacing: -0.18px;
+
+  @media screen and (min-width: 1300px) {
+    font-size: 20px;
+  }
 `;
 
 export const DataContainerDiv = styled.div`
   height: 43px;
   width: 90%;
-
   border-radius: 15px;
   margin: 12px 0;
 `;
