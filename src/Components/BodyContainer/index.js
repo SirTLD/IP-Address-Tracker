@@ -35,8 +35,10 @@ const BodyContainer = () => {
 
     setLoading(true);
     try {
+      const CROSS_DOMAIN = 'https://the-ultimate-api-challenge.herokuapp.com';
+
       const URL_PATH = `
-      https://geo.ipify.org/api/v1?apiKey=${config.ipAddressKey}&ipAddress=${searchInput}&domain=${searchInput}`;
+      ${CROSS_DOMAIN}/https://geo.ipify.org/api/v1?apiKey=${config.ipAddressKey}&ipAddress=${searchInput}&domain=${searchInput}`;
       const api_call = await fetch(URL_PATH);
       const response = await api_call.json();
 
