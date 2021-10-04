@@ -127,7 +127,7 @@ const BodyContainer = () => {
           <MainContainerBottom>
             <PropagateLoader
               css={override}
-              size={15}
+              size={13}
               color={'black'}
               loading={loading}
             />
