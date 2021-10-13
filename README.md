@@ -1,3 +1,5 @@
 # IP-Tracker
-The app allows you to get network information and location data using ip address or domain name searches.
+The app provides network information and location data using ip address or domain name searches.
+
+Built using React, Styled Components, API
 
